@@ -4,9 +4,11 @@ import { StyleSheet, Text, View } from 'react-native';
 
 class DeckDetails extends Component {
     render() {
+        console.log('props in DeckDetails ', this.props);
+        const { deck } = this.props.navigation.state.params;
         return (
             <View style={styles.container}>
-                <Text>{this.props.title}</Text>
+                <Text>This is DeckDetails View: {deck}</Text>
             </View>
         );
     }

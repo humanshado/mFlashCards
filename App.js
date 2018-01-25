@@ -1,11 +1,21 @@
 import React, { Component } from 'react';
-import { StyleSheet, Text, View, Platform } from 'react-native';
-import { TabNavigator } from 'react-navigation';
+import { StyleSheet, Text, View, Platform, AsyncStorage } from 'react-native';
+import { TabNavigator, StackNavigator } from 'react-navigation';
+import { applyMiddleware, createStore } from 'redux';
+import { logger } from 'redux-logger';
+import { Provider } from 'react-redux';
+import { persistStore, autoRehydrate } from 'redux-persist';
+import { AppLoading } from 'expo';
+import deckReducer from './reducers';
 import DeckList from './components/DeckList';
-import DeckDetails from './components/DeckDetails';
 import AddDeck from './components/AddDeck';
+import DeckDetails from './components/DeckDetails';
 import { FontAwesome, MaterialCommunityIcons } from '@expo/vector-icons';
 
+const store = createStore(
+  deckReducer,
+  applyMiddleware(logger)
+)
 
 const Tabs = TabNavigator({
     DeckList: {
@@ -28,17 +38,38 @@ const Tabs = TabNavigator({
     style: {
       height: 50,
       backgroundColor: Platform.OS === "ios" ? "white" : "blue",
-      marginTop: Platform.OS === "ios" ? 0 : 24
     }
   }
 })
 
+const MainNav = StackNavigator({
+  Home: { screen: Tabs },
+  DeckDetails: { screen: DeckDetails }
+})
+
 class App extends Component {
+
+  state = {
+    isReady: false
+  }
+
+  componentDidMount(){
+    persistStore(store, {
+      storage: AsyncStorage,
+    }, () => { this.setState({ isReady: true })})
+  }
+
   render() {
+    if(!this.state.isReady){
+      return <AppLoading />
+    }
+
     return (
-      <View style={{flex: 1}}>
-        <Tabs />
-      </View>
+      <Provider store={store}>
+        <View style={{flex: 1}}>
+          <MainNav />
+        </View>
+      </Provider>
     );
   }
 }

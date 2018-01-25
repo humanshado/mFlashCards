@@ -4,6 +4,7 @@ import { StyleSheet, Text, View } from 'react-native';
 
 class AddDeck extends Component {
     render() {
+        console.log('props in AddDeck ', this.props);
         return (
             <View style={styles.container}>
                 <Text>Add New Deck</Text>

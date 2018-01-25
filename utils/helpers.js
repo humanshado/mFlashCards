@@ -1,4 +1,6 @@
-const defaultDecks = {
+export const STORATE_KEY = "ABUMOBILEFLASHCARDS12345";
+
+export const defaultDecks = {
         nigeria: {
             title: "Nigeria",
             questions: [
