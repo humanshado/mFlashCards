@@ -8,7 +8,7 @@ import { fetchDecks } from '../actions';
 class DeckList extends Component {
     
     componentWillMount(){
-        this.props.fetchDecks();
+        this.props.fetchDecks(getDecks())
     }
 
     render() {

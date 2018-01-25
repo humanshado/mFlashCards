@@ -1,11 +1,12 @@
 import React, { Component } from 'react';
 import { StyleSheet, Text, View, Platform, AsyncStorage } from 'react-native';
 import { TabNavigator, StackNavigator } from 'react-navigation';
-import { applyMiddleware, createStore } from 'redux';
+import { applyMiddleware, createStore, compose } from 'redux';
 import { logger } from 'redux-logger';
 import { Provider } from 'react-redux';
 import { persistStore, autoRehydrate } from 'redux-persist';
 import { AppLoading } from 'expo';
+import { getDecks } from './utils/helpers';
 import deckReducer from './reducers';
 import DeckList from './components/DeckList';
 import AddDeck from './components/AddDeck';
@@ -14,7 +15,10 @@ import { FontAwesome, MaterialCommunityIcons } from '@expo/vector-icons';
 
 const store = createStore(
   deckReducer,
-  applyMiddleware(logger)
+  compose(
+    applyMiddleware(logger),
+    autoRehydrate()
+  )
 )
 
 const Tabs = TabNavigator({
