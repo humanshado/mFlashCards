@@ -1,5 +1,4 @@
 import { FETCH_DECKS, ADD_DECK, FETCH_DECK, ADD_CARD } from '../actions';
-import { defaultDecks } from '../utils/helpers';
 
 function deckReducer(state = {}, action){
     switch(action.type){
@@ -13,7 +12,9 @@ function deckReducer(state = {}, action){
                 }
             }
         case FETCH_DECK:
-            return { ...action.payload }
+            return {
+                 ...action.payload
+             }
         case ADD_CARD:
             return {}
         default:

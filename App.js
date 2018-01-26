@@ -7,11 +7,11 @@ import { Provider } from 'react-redux';
 import { persistStore, autoRehydrate } from 'redux-persist';
 import { AppLoading } from 'expo';
 import { getDecks } from './utils/helpers';
+import { FontAwesome, MaterialCommunityIcons } from '@expo/vector-icons';
 import deckReducer from './reducers';
 import DeckList from './components/DeckList';
 import AddDeck from './components/AddDeck';
 import DeckDetails from './components/DeckDetails';
-import { FontAwesome, MaterialCommunityIcons } from '@expo/vector-icons';
 
 const store = createStore(
   deckReducer,
@@ -46,10 +46,11 @@ const Tabs = TabNavigator({
   }
 })
 
-const MainNav = StackNavigator({
+const RootNav = StackNavigator({
   Home: { screen: Tabs },
   DeckDetails: { screen: DeckDetails }
 })
+
 
 class App extends Component {
 
@@ -65,13 +66,18 @@ class App extends Component {
 
   render() {
     if(!this.state.isReady){
-      return <AppLoading />
+      return (
+        <View>
+          <Text>Welcome to Mobile FlashCards!</Text>
+          <AppLoading />
+        </View>
+      )
     }
 
     return (
       <Provider store={store}>
         <View style={{flex: 1}}>
-          <MainNav />
+          <RootNav />
         </View>
       </Provider>
     );

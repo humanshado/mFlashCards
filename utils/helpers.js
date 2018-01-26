@@ -1,7 +1,7 @@
 export const STORATE_KEY = "ABUMOBILEFLASHCARDS12345";
 
 export const defaultDecks = {
-        nigeria: {
+        Nigeria: {
             title: "Nigeria",
             questions: [
                 {
@@ -14,7 +14,7 @@ export const defaultDecks = {
                 }
             ]
         },
-            canada: {
+            Canada: {
                 title: "Canada",
                 questions: [
                     {
@@ -27,7 +27,7 @@ export const defaultDecks = {
                     }
                 ]
             },
-            australia: {
+            Australia: {
                 title: "Australia",
                 questions: [
                     {
@@ -40,7 +40,7 @@ export const defaultDecks = {
                     }
                 ]
             },
-            brazil: {
+            Brazil: {
                 title: "Brazil",
                 questions: [
                     {
@@ -53,7 +53,7 @@ export const defaultDecks = {
                     }
                 ]
             },
-            norway: {
+            Norway: {
                 title: "Norway",
                 questions: [
                     {

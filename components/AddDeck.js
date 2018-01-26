@@ -1,13 +1,35 @@
 import React, { Component } from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import { connect } from 'react-redux';
+import { StyleSheet, Text, View, TextInput, TouchableOpacity } from 'react-native';
+import { addDeck } from '../actions';
 
 
 class AddDeck extends Component {
+    state = {
+        newDeckTitle: ""
+    }
+
+    submitNewDeck = async () => {
+        const { newDeckTitle } = this.state;
+        await this.props.addDeck(newDeckTitle);
+        const { decks } = this.props;
+        this.props.navigation.navigate("DeckDetails", { deck: decks[newDeckTitle] })
+        this.setState({ newDeckTitle: ""})
+    }
+
     render() {
         console.log('props in AddDeck ', this.props);
         return (
             <View style={styles.container}>
-                <Text>Add New Deck</Text>
+                <Text>Enter the name of a country</Text>
+                <TextInput
+                    value={this.state.newDeckTitle} 
+                    onChangeText={(newDeckTitle) => this.setState({ newDeckTitle })}
+                    placeholder="country name">
+                </TextInput>
+                <TouchableOpacity onPress={this.submitNewDeck}>
+                    <Text>submit</Text>
+                </TouchableOpacity>
             </View>
         );
     }
@@ -22,4 +44,11 @@ const styles = StyleSheet.create({
     },
 });
 
-export default AddDeck;
+const mapStateToProps = (state) => {
+    console.log('state in AddDeck ', state)
+    return {
+        decks: state
+    };
+}
+
+export default connect(mapStateToProps, { addDeck })(AddDeck);

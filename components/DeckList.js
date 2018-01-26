@@ -2,8 +2,8 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { StyleSheet, Text, View, TouchableOpacity } from 'react-native';
 import { getDecks } from '../utils/helpers';
-import DeckDetails from './DeckDetails';
 import { fetchDecks } from '../actions';
+import DeckDetails from './DeckDetails';
 
 class DeckList extends Component {
     
@@ -17,16 +17,14 @@ class DeckList extends Component {
         console.log('props in DeckList ', this.props)
         return (
             <View style={styles.container}>
-                <Text>Welcome to Mobile FlashCards!</Text>
-                {Object.keys(decks).map(deck => {
-                    console.log(deck)
-                    const { title, questions } = decks[deck]
+                {decks.map(deck => {
+                    const { title, questions } = deck
                     return (
-                        <View key={deck}>
+                        <View key={deck.title}>
                             <Text>{title}</Text>
                             <TouchableOpacity 
                                 onPress={() => navigate('DeckDetails', { deck: deck })}>
-                                <Text>Show Deck</Text>
+                                <Text>show</Text>
                             </TouchableOpacity>
                         </View>
                     )
@@ -53,9 +51,9 @@ const styles = StyleSheet.create({
 });
 
 const mapStateToProps = (state) => {
-    console.log('state in DeckList.js ', state);
+    console.log('state in DeckList.js ', Object.values(state));
     return {
-        decks: state
+        decks: Object.values(state)
     }
 }
 
