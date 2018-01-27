@@ -1,6 +1,8 @@
-export const STORATE_KEY = "ABUMOBILEFLASHCARDS12345";
+import { AsyncStorage } from 'react-native';
 
-export const defaultDecks = {
+export const MY_STORAGE_KEY = "@myFlashCards:key";
+
+const defaultDecks = {
         Nigeria: {
             title: "Nigeria",
             questions: [
@@ -68,6 +70,29 @@ export const defaultDecks = {
             }
         }
 
-export function getDecks() {
-    return defaultDecks;
+export async function getDecks(){
+    try {
+        const result = await AsyncStorage.getItem(MY_STORAGE_KEY);
+        if (result !== null) {
+            return JSON.parse(result);
+        } else {
+            await AsyncStorage.setItem(MY_STORAGE_KEY, JSON.stringify(defaultDecks))
+            return defaultDecks;
+        }
+    } catch (error) {
+       console.error(error)
+    }
+}
+
+export async function saveDeckToAsynStorage(newDeckTitle) {
+    try {
+        await AsyncStorage.mergeItem(MY_STORAGE_KEY, JSON.stringify({
+            [newDeckTitle]: {
+                title: newDeckTitle,
+                questions: []
+            }
+        }))
+    } catch (error) {
+        console.error(error)
+    }
 }

@@ -4,7 +4,6 @@ import { TabNavigator, StackNavigator } from 'react-navigation';
 import { applyMiddleware, createStore, compose } from 'redux';
 import { logger } from 'redux-logger';
 import { Provider } from 'react-redux';
-import { persistStore, autoRehydrate } from 'redux-persist';
 import { AppLoading } from 'expo';
 import { getDecks } from './utils/helpers';
 import { FontAwesome, MaterialCommunityIcons } from '@expo/vector-icons';
@@ -16,8 +15,7 @@ import DeckDetails from './components/DeckDetails';
 const store = createStore(
   deckReducer,
   compose(
-    applyMiddleware(logger),
-    autoRehydrate()
+    applyMiddleware(logger)
   )
 )
 
@@ -58,21 +56,14 @@ class App extends Component {
     isReady: false
   }
 
-  componentDidMount(){
-    persistStore(store, {
-      storage: AsyncStorage,
-    }, () => { this.setState({ isReady: true })})
-  }
-
   render() {
-    if(!this.state.isReady){
-      return (
-        <View>
-          <Text>Welcome to Mobile FlashCards!</Text>
-          <AppLoading />
-        </View>
-      )
-    }
+    // if(!this.state.isReady){
+    //   return (
+    //     <View>
+    //       <Text>Welcome to Mobile FlashCards!</Text>
+    //     </View>
+    //   )
+    // }
 
     return (
       <Provider store={store}>

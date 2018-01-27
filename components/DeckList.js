@@ -7,8 +7,9 @@ import DeckDetails from './DeckDetails';
 
 class DeckList extends Component {
     
-    componentWillMount(){
-        this.props.fetchDecks(getDecks())
+    componentWillMount = async () => {
+        const decks = await getDecks();
+        await this.props.fetchDecks(decks);
     }
 
     render() {

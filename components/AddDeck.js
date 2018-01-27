@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { StyleSheet, Text, View, TextInput, TouchableOpacity } from 'react-native';
+import { saveDeckToAsynStorage } from '../utils/helpers';
 import { addDeck } from '../actions';
 
 
@@ -11,6 +12,7 @@ class AddDeck extends Component {
 
     submitNewDeck = async () => {
         const { newDeckTitle } = this.state;
+        await saveDeckToAsynStorage(newDeckTitle)
         await this.props.addDeck(newDeckTitle);
         const { decks } = this.props;
         this.props.navigation.navigate("DeckDetails", { deck: decks[newDeckTitle] })
