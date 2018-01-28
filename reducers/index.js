@@ -16,12 +16,18 @@ function deckReducer(state = {}, action){
                  ...action.payload
              }
         case ADD_CARD:
-            return {}
+             console.log('payload in add_card reducer', action.payload)
+            const { deckId, question, answer } = action.payload
+            return {
+                ...state,
+                [deckId]:{
+                    ...state[deckId],
+                    questions: [...state[deckId].questions, { question, answer }]
+                }
+            }
         default:
             return state;
     }
 }
 
 export default deckReducer;
-
-

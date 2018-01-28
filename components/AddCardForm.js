@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import { View, Text, TextInput, StyleSheet, TouchableOpacity } from 'react-native';
 import { connect } from 'react-redux';
+import { saveCardToDeck } from '../utils/helpers';
+import { addCard } from '../actions';
 
 class AddCardForm extends Component {
     state = {
@@ -8,8 +10,12 @@ class AddCardForm extends Component {
         answer: ""
     }
 
-    submitNewCard = () => {
-
+    submitNewCard = async (deckId) => {
+        const { question, answer } = this.state;
+        await saveCardToDeck(deckId, question, answer );
+        await this.props.addCard({deckId, question, answer});
+        this.setState({ question: "", answer: ""});
+        this.props.navigation.goBack();
     }
 
     render(){
@@ -29,7 +35,7 @@ class AddCardForm extends Component {
                     onChangeText={(answer) => this.setState({ answer })}
                     placeholder="answer here...">
                 </TextInput>
-                <TouchableOpacity onPress={this.submitNewCard}>
+                <TouchableOpacity onPress={() => this.submitNewCard(deckId)}>
                     <Text>submit</Text>
                 </TouchableOpacity>
             </View>
@@ -46,4 +52,5 @@ const styles = StyleSheet.create({
     },
 });
 
-export default connect()(AddCardForm);
+
+export default connect(null, { addCard })(AddCardForm);

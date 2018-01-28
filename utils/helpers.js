@@ -97,19 +97,27 @@ export async function saveDeckToAsyncStorage(newDeckTitle) {
     }
 }
 
-export async function addCard(deckTitle, { question, answer }) {
-    try {
-        const response = await AsyncStorage.getItem(MY_STORAGE_KEY, (response) => {
-            const deck = response[deckTitle] 
-            return deck;
-        });
-        AsyncStorage.mergeItem(MY_STORAGE_KEY, JSON.stringify({
-            [deck.title]: {
-                title: deck.title,
-                questions: questions.push({question, answer}), 
-            }
-        }))
-    } catch (error) {
-        console.error(error)
-    }
+// export async function saveCardToDeck(deckId, question, answer ) {
+//     try {
+//         const response = await AsyncStorage.getItem(MY_STORAGE_KEY)
+//         console.log('response in helpers saveCard ', response);
+//         console.log('deckId in helpers saveCard ', JSON.stringify(deckId));
+//         console.log('deck in helpers saveCard ', response[deckId]);
+//         const deck = decks[deckId].questions.push({ question, answer }) 
+//         return decks;
+
+//         AsyncStorage.setItem(MY_STORAGE_KEY, JSON.stringify(decks))
+//     } catch (error) {
+//         console.error(error)
+//     }
+// }
+
+export function saveCardToDeck(deckId, question, answer){
+    return AsyncStorage.getItem(MY_STORAGE_KEY)
+        .then(response => JSON.parse(response))
+            .then(result => {
+                console.log('result in helpers saveCard ', result);
+                result[deckId].questions.push({ question, answer })
+                AsyncStorage.setItem(MY_STORAGE_KEY, JSON.stringify(result))
+            })
 }
