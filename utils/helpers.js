@@ -72,9 +72,9 @@ const defaultDecks = {
 
 export async function getDecks(){
     try {
-        const result = await AsyncStorage.getItem(MY_STORAGE_KEY);
-        if (result !== null) {
-            return JSON.parse(result);
+        const response = await AsyncStorage.getItem(MY_STORAGE_KEY);
+        if (response !== null) {
+            return JSON.parse(response);
         } else {
             await AsyncStorage.setItem(MY_STORAGE_KEY, JSON.stringify(defaultDecks))
             return defaultDecks;
@@ -84,12 +84,29 @@ export async function getDecks(){
     }
 }
 
-export async function saveDeckToAsynStorage(newDeckTitle) {
+export async function saveDeckToAsyncStorage(newDeckTitle) {
     try {
         await AsyncStorage.mergeItem(MY_STORAGE_KEY, JSON.stringify({
             [newDeckTitle]: {
                 title: newDeckTitle,
                 questions: []
+            }
+        }))
+    } catch (error) {
+        console.error(error)
+    }
+}
+
+export async function addCard(deckTitle, { question, answer }) {
+    try {
+        const response = await AsyncStorage.getItem(MY_STORAGE_KEY, (response) => {
+            const deck = response[deckTitle] 
+            return deck;
+        });
+        AsyncStorage.mergeItem(MY_STORAGE_KEY, JSON.stringify({
+            [deck.title]: {
+                title: deck.title,
+                questions: questions.push({question, answer}), 
             }
         }))
     } catch (error) {

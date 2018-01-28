@@ -11,6 +11,7 @@ import deckReducer from './reducers';
 import DeckList from './components/DeckList';
 import AddDeck from './components/AddDeck';
 import DeckDetails from './components/DeckDetails';
+import AddCardForm from './components/AddCardForm';
 
 const store = createStore(
   deckReducer,
@@ -46,25 +47,14 @@ const Tabs = TabNavigator({
 
 const RootNav = StackNavigator({
   Home: { screen: Tabs },
-  DeckDetails: { screen: DeckDetails }
+  DeckDetails: { screen: DeckDetails },
+  AddCardForm: { screen: AddCardForm }
 })
 
 
 class App extends Component {
 
-  state = {
-    isReady: false
-  }
-
   render() {
-    // if(!this.state.isReady){
-    //   return (
-    //     <View>
-    //       <Text>Welcome to Mobile FlashCards!</Text>
-    //     </View>
-    //   )
-    // }
-
     return (
       <Provider store={store}>
         <View style={{flex: 1}}>

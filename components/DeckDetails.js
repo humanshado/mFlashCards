@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { StyleSheet, Text, View } from 'react-native';
+import { StyleSheet, Text, View, TouchableOpacity } from 'react-native';
 import { fetchDecks } from '../actions';
+import AddCardForm from './AddCardForm';
 
 
 class DeckDetails extends Component {
@@ -12,10 +13,19 @@ class DeckDetails extends Component {
 
     render() {
         console.log('Props in DeckDetails ', this.props);
-        const { deck } = this.props;
+        const { deck, navigation } = this.props;
         return (
             <View style={styles.container}>
-                <Text>This is DeckDetails View: {deck.title}</Text>
+                <View>
+                    <Text>Welcome to: {deck.title}</Text>
+                    <Text>Number of Cards: {deck.questions.length}</Text>
+                </View>
+                <TouchableOpacity onPress={() => navigation.navigate("AddCardForm", {deckId: deck.title })}>
+                    <Text>Add Card</Text>
+                </TouchableOpacity>
+                <TouchableOpacity>
+                    <Text>Start Quiz</Text>
+                </TouchableOpacity>
             </View>
         );
     }

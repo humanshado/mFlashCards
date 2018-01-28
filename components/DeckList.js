@@ -13,16 +13,20 @@ class DeckList extends Component {
     }
 
     render() {
+        console.log('props in DeckList ', this.props)
         const { navigate } = this.props.navigation;
         const { decks } = this.props;
-        console.log('props in DeckList ', this.props)
         return (
             <View style={styles.container}>
+                <View>
+                    <Text>Welcome to Mobile FlashCards!</Text>
+                </View>
                 {decks.map(deck => {
                     const { title, questions } = deck
                     return (
                         <View key={deck.title}>
                             <Text>{title}</Text>
+                            <Text>Number of Cards: {questions.length}</Text>
                             <TouchableOpacity 
                                 onPress={() => navigate('DeckDetails', { deck: deck })}>
                                 <Text>show</Text>
