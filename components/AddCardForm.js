@@ -23,20 +23,25 @@ class AddCardForm extends Component {
         const { deckId } = this.props.navigation.state.params;
         return(
             <View style={styles.container}>
-                <Text>Lets add new Card in {deckId}</Text>
-                <Text>Enter the new question</Text>
+                <Text style={[styles.textStyle, {color: "blue", fontWeight: "bold", marginBottom: 80}]}>Add new question on {deckId}</Text>
+                <Text style={styles.textStyle}>Type question in the box </Text>
                 <TextInput
+                    style={styles.input}
                     value={this.state.question}
                     onChangeText={(question) => this.setState({ question })}
                     placeholder="question here...">
                 </TextInput>
+                <Text style={styles.textStyle}>Suggest an answer </Text>
                 <TextInput
+                    style={styles.input}
                     value={this.state.answer}
                     onChangeText={(answer) => this.setState({ answer })}
                     placeholder="answer here...">
                 </TextInput>
-                <TouchableOpacity onPress={() => this.submitNewCard(deckId)}>
-                    <Text>submit</Text>
+                <TouchableOpacity
+                    style={styles.btn} 
+                    onPress={() => this.submitNewCard(deckId)}>
+                    <Text style={styles.btnText}>submit</Text>
                 </TouchableOpacity>
             </View>
         )
@@ -46,10 +51,45 @@ class AddCardForm extends Component {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        backgroundColor: '#fff',
         alignItems: 'center',
         justifyContent: 'center',
     },
+    textStyle: {
+        fontSize: 22,
+        textAlign: "center",
+        fontWeight: "bold",
+        marginBottom: 5
+    },
+    input: {
+        width: 300,
+        height: 50,
+        padding: 8,
+        fontSize: 18,
+        borderColor: "#013342",
+        borderWidth: 2,
+        borderRadius: 7,
+        marginBottom: 50,
+        textAlign: "center"
+    },
+    btn:{
+        width: 100,
+        height: 45,
+        borderWidth: 1,
+        borderRadius: 5,
+        justifyContent: "center",
+        alignItems: "center",
+        backgroundColor: "#013342",
+        marginTop: 25,
+        shadowColor: "#000",
+        shadowOffset: { width: 5, height: 5 },
+        shadowOpacity: 0.5
+    },
+    btnText: {
+        color: "#FBFBFF",
+        fontWeight: "bold",
+        justifyContent: "center",
+        alignSelf: "center"
+    }
 });
 
 

@@ -32,15 +32,19 @@ const Tabs = TabNavigator({
       screen: AddDeck,
       navigationOptions: {
         tabBarLabel: 'New Deck',
-        tabBarIcon: ({ tintColor }) => <FontAwesome name="plus-square" size={30} color={tintColor} /> 
+        tabBarIcon: ({ tintColor }) => <FontAwesome name="plus-square" size={30} color={tintColor}/> 
       }
     }
-  }, {
+  }, 
+  {
+    tabBarPosition: Platform.OS === "android" ? "bottom" : "bottom"
+  },
+  {
     tabBarOptions: {
-      activeTintColor: Platform.OS === "ios" ? "#565254" : "white",
+      activeTintColor: Platform.OS === "ios" ? "#013342" : "white",
     style: {
       height: 50,
-      backgroundColor: Platform.OS === "ios" ? "white" : "blue",
+      backgroundColor: Platform.OS === "ios" ? "white" : "#013342",
     }
   }
 })
@@ -49,7 +53,7 @@ const RootNav = StackNavigator({
   Home: { 
     screen: Tabs,
     navigationOptions: {
-      title: "Welcome to Mobile FlashCards!",
+      title: "Mobile FlashCards!",
       headerTintColor: "#565254",
       headerStyle: {
         backgroundColor: "#FBFBFF",
@@ -63,9 +67,9 @@ const RootNav = StackNavigator({
     screen: DeckDetails,
     navigationOptions: {
       title: "Deck",
-      headerTintColor: "#F8F8F8",
+      headerTintColor: "#FBFBFF",
       headerStyle: {
-        backgroundColor: "#656163"
+        backgroundColor: "#013342"
       }
     }
    },
@@ -73,9 +77,9 @@ const RootNav = StackNavigator({
     screen: AddCardForm,
     navigationOptions: {
       title: "New Card",
-      headerTintColor: "#F8F8F8",
+      headerTintColor: "#565254",
       headerStyle: {
-        backgroundColor: "#282627"
+        backgroundColor: "#FBFBFF"
       }
     }
    }
