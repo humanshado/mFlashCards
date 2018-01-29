@@ -20,11 +20,11 @@ class DeckDetails extends Component {
                     <Text>Welcome to: {deck.title}</Text>
                     <Text>Number of Cards: {deck.questions.length}</Text>
                 </View>
-                <TouchableOpacity onPress={() => navigation.navigate("AddCardForm", {deckId: deck.title })}>
-                    <Text>Add Card</Text>
-                </TouchableOpacity>
                 <TouchableOpacity>
                     <Text>Start Quiz</Text>
+                </TouchableOpacity>
+                <TouchableOpacity onPress={() => navigation.navigate("AddCardForm", {deckId: deck.title })}>
+                    <Text>Add Card</Text>
                 </TouchableOpacity>
             </View>
         );

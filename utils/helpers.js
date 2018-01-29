@@ -97,21 +97,6 @@ export async function saveDeckToAsyncStorage(newDeckTitle) {
     }
 }
 
-// export async function saveCardToDeck(deckId, question, answer ) {
-//     try {
-//         const response = await AsyncStorage.getItem(MY_STORAGE_KEY)
-//         console.log('response in helpers saveCard ', response);
-//         console.log('deckId in helpers saveCard ', JSON.stringify(deckId));
-//         console.log('deck in helpers saveCard ', response[deckId]);
-//         const deck = decks[deckId].questions.push({ question, answer }) 
-//         return decks;
-
-//         AsyncStorage.setItem(MY_STORAGE_KEY, JSON.stringify(decks))
-//     } catch (error) {
-//         console.error(error)
-//     }
-// }
-
 export function saveCardToDeck(deckId, question, answer){
     return AsyncStorage.getItem(MY_STORAGE_KEY)
         .then(response => JSON.parse(response))

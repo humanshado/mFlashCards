@@ -37,7 +37,7 @@ const Tabs = TabNavigator({
     }
   }, {
     tabBarOptions: {
-    activeTintColor: Platform.OS === "ios" ? "blue" : "white",
+      activeTintColor: Platform.OS === "ios" ? "#565254" : "white",
     style: {
       height: 50,
       backgroundColor: Platform.OS === "ios" ? "white" : "blue",
@@ -46,9 +46,39 @@ const Tabs = TabNavigator({
 })
 
 const RootNav = StackNavigator({
-  Home: { screen: Tabs },
-  DeckDetails: { screen: DeckDetails },
-  AddCardForm: { screen: AddCardForm }
+  Home: { 
+    screen: Tabs,
+    navigationOptions: {
+      title: "Welcome to Mobile FlashCards!",
+      headerTintColor: "#565254",
+      headerStyle: {
+        backgroundColor: "#FBFBFF",
+        shadowColor: "#000",
+        shadowOffset: { width: 0, height: 5 },
+        shadowOpacity: 0.2
+      }
+    }
+   },
+  DeckDetails: { 
+    screen: DeckDetails,
+    navigationOptions: {
+      title: "Deck",
+      headerTintColor: "#F8F8F8",
+      headerStyle: {
+        backgroundColor: "#656163"
+      }
+    }
+   },
+  AddCardForm: { 
+    screen: AddCardForm,
+    navigationOptions: {
+      title: "New Card",
+      headerTintColor: "#F8F8F8",
+      headerStyle: {
+        backgroundColor: "#282627"
+      }
+    }
+   }
 })
 
 
