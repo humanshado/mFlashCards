@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import { StyleSheet, Text, View, TouchableOpacity } from 'react-native';
 import { fetchDecks } from '../actions';
 import AddCardForm from './AddCardForm';
+import Quiz from './Quiz';
 
 
 class DeckDetails extends Component {
@@ -20,7 +21,9 @@ class DeckDetails extends Component {
                     <Text style={styles.titleText}>{deck.title}</Text>
                     <Text style={styles.cardText}>Number of Cards: {deck.questions.length}</Text>
                 </View>
-                <TouchableOpacity style={[styles.btn, {backgroundColor: "orange"}]}>
+                <TouchableOpacity 
+                    style={[styles.btn, {backgroundColor: "orange"}]}
+                    onPress={() => navigation.navigate("Quiz", { ...this.props })}>
                     <Text style={[styles.btnText, { color: "#013342"}]}>Start Quiz</Text>
                 </TouchableOpacity>
                 <TouchableOpacity 

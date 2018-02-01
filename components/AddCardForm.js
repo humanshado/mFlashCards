@@ -29,7 +29,8 @@ class AddCardForm extends Component {
                     style={styles.input}
                     value={this.state.question}
                     onChangeText={(question) => this.setState({ question })}
-                    placeholder="question here...">
+                    placeholder="question here..."
+                    autoFocus={true}>
                 </TextInput>
                 <Text style={styles.textStyle}>Suggest an answer </Text>
                 <TextInput

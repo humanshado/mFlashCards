@@ -7,12 +7,12 @@ const defaultDecks = {
             title: "Nigeria",
             questions: [
                 {
-                    question1: "Is Nigeria located in Africa?",
-                    answer1: "Yes"
+                    question: "Is Nigeria located in Africa?",
+                    answer: "Yes"
                 },
                 {
-                    question2: "Is Lagos the capital of Nigeria?",
-                    answer2: "No"
+                    question: "Is Lagos the capital of Nigeria?",
+                    answer: "No"
                 }
             ]
         },
@@ -20,12 +20,12 @@ const defaultDecks = {
                 title: "Canada",
                 questions: [
                     {
-                        question1: "Is Canada located in Asia?",
-                        answer1: "No"
+                        question: "Is Canada located in Asia?",
+                        answer: "No"
                     },
                     {
-                        question2: "Is Toronto the capital of Canada?",
-                        answer2: "No"
+                        question: "Is Toronto the capital of Canada?",
+                        answer: "No"
                     }
                 ]
             },
@@ -33,12 +33,12 @@ const defaultDecks = {
                 title: "Australia",
                 questions: [
                     {
-                        question1: "Is Australia located in Europe?",
-                        answer1: "No"
+                        question: "Is Australia located in Europe?",
+                        answer: "No"
                     },
                     {
-                        question2: "Is Canberra the capital of Australia?",
-                        answer2: "Yes"
+                        question: "Is Canberra the capital of Australia?",
+                        answer: "Yes"
                     }
                 ]
             },
@@ -46,12 +46,12 @@ const defaultDecks = {
                 title: "Brazil",
                 questions: [
                     {
-                        question1: "Is Brazil located in South America?",
-                        answer1: "Yes"
+                        question: "Is Brazil located in South America?",
+                        answer: "Yes"
                     },
                     {
-                        question2: "Is Brasilia the capital of Brazil?",
-                        answer2: "Yes"
+                        question: "Is Brasilia the capital of Brazil?",
+                        answer: "Yes"
                     }
                 ]
             },
@@ -59,19 +59,21 @@ const defaultDecks = {
                 title: "Norway",
                 questions: [
                     {
-                        question1: "Is Norway located in Europe?",
-                        answer1: "Yes"
+                        question: "Is Norway located in Europe?",
+                        answer: "Yes"
                     },
                     {
-                        question2: "Is Oslo the capital of Norway?",
-                        answer2: "Yes"
+                        question: "Is Oslo the capital of Norway?",
+                        answer: "Yes"
                     }
                 ]
             }
         }
 
+
 export async function getDecks(){
     try {
+        //const cleanStorage = await AsyncStorage.clear();
         const response = await AsyncStorage.getItem(MY_STORAGE_KEY);
         if (response !== null) {
             return JSON.parse(response);

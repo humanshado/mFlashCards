@@ -12,6 +12,7 @@ import DeckList from './components/DeckList';
 import AddDeck from './components/AddDeck';
 import DeckDetails from './components/DeckDetails';
 import AddCardForm from './components/AddCardForm';
+import Quiz from './components/Quiz';
 
 const store = createStore(
   deckReducer,
@@ -82,7 +83,17 @@ const RootNav = StackNavigator({
         backgroundColor: "#FBFBFF"
       }
     }
-   }
+   },
+  Quiz: {
+    screen: Quiz,
+    navigationOptions: {
+      title: "Quiz",
+      headerTintColor: "#565254",
+      headerStyle: {
+        backgroundColor: "#FBFBFF"
+      }
+    }
+  }
 })
 
 
