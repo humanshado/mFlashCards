@@ -1,6 +1,11 @@
 import { AsyncStorage } from 'react-native';
+import { Notifications, Permissions } from 'expo';
 
 export const MY_STORAGE_KEY = "@myFlashCards:key";
+export const NOTIFICATIONS_KEY = "@myNotifications:key";
+
+
+//Initial default data
 
 const defaultDecks = {
         Nigeria: {
@@ -71,6 +76,8 @@ const defaultDecks = {
         }
 
 
+//API calls to AsyncStorage data
+
 export async function getDecks(){
     try {
         //const cleanStorage = await AsyncStorage.clear();
@@ -107,4 +114,53 @@ export function saveCardToDeck(deckId, question, answer){
                 result[deckId].questions.push({ question, answer })
                 AsyncStorage.setItem(MY_STORAGE_KEY, JSON.stringify(result))
             })
+}
+
+
+//Local Notifications 
+
+function createNotification(){
+    return {
+        title: "Quiz time!",
+        body: "👏 Remember to study your flash cards",
+        ios: {
+            sound: true
+        },
+        android: {
+            sound: true,
+            priority: "high",
+            sticky: false,
+            vibrate: true
+        }
+    }
+}
+
+export function setLocalNotification(){
+    AsyncStorage.getItem(NOTIFICATIONS_KEY)
+        .then(JSON.parse)
+        .then(data => {
+            if(data === null){
+                Permissions.askAsync(Permissions.NOTIFICATIONS)
+                    .then(({ status }) => {
+                        if(status === "granted"){
+                            Notifications.cancelAllScheduledNotificationsAsync()
+
+                            let tomorrow = new Date()
+                            tomorrow.setDate(tomorrow.getDate() + 1)
+                            tomorrow.setHours(20)
+                            tomorrow.setMinutes(0)
+
+                            Notifications.scheduleLocalNotificationAsync(
+                                createNotification(),
+                                {
+                                    time: tomorrow,
+                                    repeat: "day"
+                                }
+                            )
+
+                            AsyncStorage.setItem(NOTIFICATIONS_KEY, JSON.stringify(true))
+                        }
+                    })
+            }
+        })
 }

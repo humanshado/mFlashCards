@@ -13,6 +13,7 @@ import AddDeck from './components/AddDeck';
 import DeckDetails from './components/DeckDetails';
 import AddCardForm from './components/AddCardForm';
 import Quiz from './components/Quiz';
+import { clearLocalNotification, setLocalNotification } from './utils/helpers';
 
 const store = createStore(
   deckReducer,
@@ -98,6 +99,10 @@ const RootNav = StackNavigator({
 
 
 class App extends Component {
+
+  componentDidMount(){
+    setLocalNotification();
+  }
 
   render() {
     return (

@@ -18,8 +18,9 @@ class Quiz extends Component {
         let newDeck = this.props.navigation.state.params.deck;
         const { deck } = this.state;
         this.setState({ deck: newDeck });
-
     }
+
+    
 
     displayAnswer = () => {
         this.setState({ displayQuestion: !this.state.displayQuestion})
