@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { View, Text, TouchableOpacity, StyleSheet } from 'react-native';
 import { NavigationActions } from 'react-navigation';
 import DeckList from './DeckList';
+import DeckDetails from './DeckDetails';
 
 class Quiz extends Component {
 
@@ -10,8 +11,7 @@ class Quiz extends Component {
         questionIndex: 0,
         displayQuestion: true,
         correct: 0,
-        wrong: 0,
-        score: 0
+        wrong: 0
     }
 
     componentWillMount = () => {
@@ -31,6 +31,7 @@ class Quiz extends Component {
 
     submitScore = (event, questionNumber, numberOfQuestions) => {
         let { questionIndex, correct, wrong, score } = this.state;
+
         //Replace recorded time in AsyncStorage || save time to AsyncStorage if records === null
         
         if(event === "correctBtn"){
@@ -40,6 +41,15 @@ class Quiz extends Component {
         }
 
         this.setState({ questionIndex: questionIndex + 1 });
+    }
+
+    restartQuiz = () => {
+        this.setState({
+            questionIndex: 0,
+            correct: 0,
+            wrong: 0,
+            displayQuestion: true
+        })
     }
 
     render() {
@@ -53,16 +63,22 @@ class Quiz extends Component {
         if(questionIndex === numberOfQuestions){
             let { correct } = this.state
             return (
-                <View>
-                    <Text>{`You scored ${Math.round((correct/numberOfQuestions)*100)}%`}</Text>
+                <View style={styles.container}>
+                    <Text style={styles.titleText}>{`You scored ${Math.round((correct/numberOfQuestions)*100)}%`}</Text>
+                    <TouchableOpacity
+                        style={styles.btn}
+                        onPress={() => this.restartQuiz()}>
+                        <Text style={styles.btnText}>Restart Quiz</Text>
+                    </TouchableOpacity>
+                    <TouchableOpacity
+                        style={styles.btn}
+                        onPress={() => navigation.goBack()}>
+                        <Text style={styles.btnText}>Go Back</Text>
+                    </TouchableOpacity>
                 </View>
             )
         }
-            //display total score
-            //display two buttons: (1) Restart Quiz (2) Exit to DeckDetails
-            //if (1) is clicked, set questionIndex to zero
-            //else Exit to DeckDetails
-
+          
         return (
             <View style={styles.container}>
                 <Text style={styles.titleText}>Quiz on {title}</Text>
